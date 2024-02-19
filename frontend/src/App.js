@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React from 'react';
 import './index.css';
 import Home from '../src/pages/Home';
 import About from './pages/About';
-import Student_registration from './pages/Student_registration';
+import StudentRegistration from './pages/Student_registration';
 import Contact from './pages/Contact';
 import Error from './pages/Error';
-import Faculty_registration from './pages/Faculty_registration';
+import FacultyRegistration from './pages/Faculty_registration';
 import Login from './pages/Login';
 import Registrationerrors from './pages/Registrationerrors';
 import Registration from './pages/Registration';
@@ -13,7 +13,7 @@ import Outpass from './pages/Outpass';
 import List from './pages/List';
 import { Routes, Route } from "react-router-dom";
 import Logout from './pages/Logout';
-import {UserProvider} from "./context/User";
+
 import Navbar from './components/Navbar';
 import Profile from './pages/Profile';
 
@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <>
-    <UserProvider>
+
     <Navbar/>
     
     <Routes>
@@ -40,7 +40,7 @@ const App = () => {
       <Route path="/facultyregister" element={
         <>
           
-          <Faculty_registration/>
+          <FacultyRegistration/>
         </>
       }/>
       {/* <Login/> */}
@@ -54,7 +54,7 @@ const App = () => {
       <Route path="/studentregister" element={
         <>
           
-          <Student_registration/>
+          <StudentRegistration/>
         </>
       }/>
       {/* <Contact/> */}
@@ -91,7 +91,7 @@ const App = () => {
       }/>
       <Route path="/logout" element={<Logout/>}/>
     </Routes>
-    </UserProvider>
+
     </>
   )
 }

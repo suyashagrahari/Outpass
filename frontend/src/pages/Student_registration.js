@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import lnmiitlogo from "../image/lnmiit.logo.png";
 import "../index.css";
-import Register_nav from "../components/Register_nav";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
@@ -40,7 +39,7 @@ const Student_registration = () => {
   
   const handleSubmit = async () => {
     try {
-      const res = await axios.post("http://localhost:4000/studentregister", user);
+      const res = await axios.post("https://outpass-backend.onrender.com/studentregister", user);
       const result = res.data;
       console.log(result);
       console.log(res);
@@ -327,6 +326,7 @@ const Student_registration = () => {
             <img
               className="object-cover object-center w-full h-full rounded-full"
               src={lnmiitlogo}
+              alt="lnmiitlogo"
             />
           </NavLink>
         </div>

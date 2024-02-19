@@ -21,12 +21,12 @@ const List = () => {
       };
 
       // Make an HTTP POST request to your backend API endpoint
-      const res = await axios.post('http://localhost:4000/list', data);
+      const res = await axios.post('https://outpass-backend.onrender.com/list', data);
 
       // Handle the response if needed
       console.log(res.data);
       if(res.status === 200){
-        window.location.href = window.location.href
+        window.location.href = "/list"
         toast.success(res.data.message);
       }
      
@@ -55,7 +55,7 @@ const List = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:4000/list", {
+        const response = await axios.get("https://outpass-backend.onrender.com/list", {
           headers: {
             Authorization: parseData.token,
           },

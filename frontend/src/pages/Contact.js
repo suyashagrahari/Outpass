@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import lnmiitlogo from "../image/lnmiit.logo.png";
-import Contact_nav from '../components/Contact_nav';
+
 import { NavLink  } from "react-router-dom";
 import {Toaster,toast} from "react-hot-toast";
 import axios from 'axios';
@@ -19,7 +19,7 @@ const Contact = () => {
 
   const handleSubmit = async()=>{
     try {
-      const res = await axios.post("http://localhost:4000/contact",user);
+      const res = await axios.post("https://outpass-backend.onrender.com/contact",user);
       console.log(res);
       if(res.status === 200)
       {
@@ -135,7 +135,7 @@ const Contact = () => {
 <div className="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
 <div>
 <NavLink to="/" className="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12">
-  <img className="object-cover object-center w-full h-full rounded-full" src={lnmiitlogo}/>
+  <img className="object-cover object-center w-full h-full rounded-full" src={lnmiitlogo} alt=''/>
 </NavLink>
 </div>
 </div>

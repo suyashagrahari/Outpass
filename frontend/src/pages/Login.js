@@ -1,8 +1,7 @@
-import React ,{ useContext, useEffect, useState } from "react";
+import React ,{ useContext, useState } from "react";
 import "../index.css";
 import lnmiitlogo from "../image/lnmiit.logo.png";
-import Login_nav from "../components/Login_nav";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
 import { UserContext } from "../context/User";
@@ -16,7 +15,7 @@ const Login = () => {
   const {authorisedStudent, setAuthorisedStudent} = UserStudent
   console.log(authorisedStudent)
   
-  const Navigate = useNavigate();
+  
   const [user,setUser] = useState({
     email:"" , password:""
   })
@@ -33,7 +32,7 @@ const Login = () => {
 
   const handleSubmit = async () => {
     try {
-      const res = await axios.post("http://localhost:4000/login", user);
+      const res = await axios.post("https://outpass-backend.onrender.com/login", user);
       console.log("Response:", res);
   
       if (res && res.data) {
@@ -238,6 +237,7 @@ const Login = () => {
             <img
               className="object-cover object-center w-full h-full rounded-full"
               src={lnmiitlogo}
+              alt="lnmiitlogo"
             />
           </NavLink>
         </div>

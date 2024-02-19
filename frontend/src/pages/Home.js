@@ -1,16 +1,13 @@
-import React,{useState,useContext} from 'react'
-import {UserContext} from "../context/User"
+import React from 'react'
+
 import "../index.css";
-import Navbar from '../components/Navbar';
+
 import { NavLink  } from "react-router-dom";
 
 
 
 const Home = () => {
-  const UserStudent = useContext(UserContext);
-  const {authorisedStudent, setAuthorisedStudent} = UserStudent
-  console.log(authorisedStudent);
-  
+
   return (
     <>
     {/* <Navbar/> */}

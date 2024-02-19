@@ -1,11 +1,10 @@
 import React ,{useEffect} from 'react'
 import axios from 'axios';
-import {useNavigate} from "react-router-dom"
+
 import toast, { Toaster } from 'react-hot-toast';
 
 const Logout = () => {
 
-    const Navigate = useNavigate();
     
     const callLogoutPage = async()=>{
     try {
@@ -14,7 +13,7 @@ const Logout = () => {
             let User = localStorage.getItem("Studentlogintoken");
             let parseData = JSON.parse(User);
             console.log("hello siuaysh ye eha ", parseData);
-            var res = await axios.get('http://localhost:4000/logout', 
+            const res = await axios.get('https://outpass-backend.onrender.com/logout', 
             {
                 headers: { 
                 'Authorization': parseData.token,
@@ -24,9 +23,6 @@ const Logout = () => {
             if(res.status === 200)
             {
                 toast.success("Logout Successfull!");
-                console.log("logout");
-                let token = localStorage.removeItem("Studentlogintoken");
-                // Navigate("/");
                 window.location.href ="/"
             }
         }
@@ -36,7 +32,7 @@ const Logout = () => {
             let parseData = JSON.parse(User);
             console.log("hello siuaysh ye eha ", parseData);
             
-            var res = await axios.get('http://localhost:4000/logout', 
+            const res = await axios.get('https://outpass-backend.onrender.com/logout', 
             {
                 headers: { 
                 'Authorization': parseData.token,
@@ -46,9 +42,6 @@ const Logout = () => {
             if(res.status === 200)
             {
                 toast.success("Logout Successfull!");
-                console.log("logout");
-                let token = localStorage.removeItem("Facultylogintoken");
-                // Navigate("/");
                 window.location.href = "/"
             }
         }

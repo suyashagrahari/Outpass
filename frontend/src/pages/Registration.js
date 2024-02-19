@@ -1,5 +1,4 @@
 import React from 'react'
-import Register_nav from '../components/Register_nav'
 import { NavLink  } from "react-router-dom";
 const Registration = () => {
   return (

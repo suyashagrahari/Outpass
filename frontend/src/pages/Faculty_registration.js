@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../index.css";
 import lnmiitlogo from "../image/lnmiit.logo.png";
-import Register_nav from "../components/Register_nav";
+
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
@@ -34,7 +34,7 @@ const Faculty_registration = () => {
   const sendData = async (e) => {
     try {
         e.preventDefault();
-      const res = await axios.post("http://localhost:4000/facultyregister",faculty);
+      const res = await axios.post("https://outpass-backend.onrender.com/facultyregister",faculty);
       const result = res.data;
       console.log(result);
       console.log(res);
@@ -222,12 +222,12 @@ const Faculty_registration = () => {
                                         </label>
                                     </div>
                                     <div className="text-sm">
-                                        <a
-                                            href="#"
+                                        <p
+                                            
                                             className="text-indigo-600 hover:text-indigo-700"
                                         >
                                             Forgot your password?
-                                        </a>
+                                        </p>
                                     </div>
                                 </div>
                                 <div>
@@ -269,6 +269,7 @@ const Faculty_registration = () => {
             <img
               className="object-cover object-center w-full h-full rounded-full"
               src={lnmiitlogo}
+              alt="lnmiitlogo"
             />
           </NavLink>
         </div>

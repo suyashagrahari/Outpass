@@ -53,7 +53,7 @@ const Outpass = () => {
         return;
       }
   
-      const res = await axios.get('http://localhost:4000/outpass', {
+      const res = await axios.get('https://outpass-backend.onrender.com/outpass', {
         headers: {
           'Authorization': user.token,
         }
@@ -78,7 +78,7 @@ const Outpass = () => {
   const handleSubmit = async () => {
     try {
       const user = { ...userData, mode, date, time, visitpurpose };
-      const result = await axios.post('http://localhost:4000/outpass', user);
+      const result = await axios.post('https://outpass-backend.onrender.com/outpass', user);
       if (result.status === 200) {
         toast.success(result.data.message);
         setTimeout(() => {
