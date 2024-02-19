@@ -1,4 +1,4 @@
-import React ,{ useContext, useState } from "react";
+import React ,{ useState } from "react";
 import "../index.css";
 import lnmiitlogo from "../image/lnmiit.logo.png";
 import { NavLink } from "react-router-dom";
@@ -53,15 +53,7 @@ const Login = () => {
 
           localStorage.setItem("Facultylogintoken",JSON.stringify(Data));
 
-          setAuthorisedStudent({
-            id : res.data.user.Faculty._id,
-            name:res.data.user.Faculty.name,
-            user : res.data.user.Faculty.user,
-            email:res.data.user.Faculty.email,
-            rollno:res.data.user.Faculty.rollno,
-            phone:res.data.user.Faculty.phone,
-            token : res.data.user.FacultyToken
-          })
+        
 
           // console.log("faculty");
           // console.log(res.data.user.StudentToken);
@@ -85,15 +77,7 @@ const Login = () => {
             token : res.data.user.StudentToken
           }
           localStorage.setItem("Studentlogintoken",JSON.stringify(Data));
-          setAuthorisedStudent({
-            id : res.data.user.Student._id,
-            name:res.data.user.Student.name,
-            user : res.data.user.Student.user,
-            email:res.data.user.Student.email,
-            rollno:res.data.user.Student.rollno,
-            phone:res.data.user.Student.phone,
-            token : res.data.user.StudentToken
-          })
+         
           toast.success(res.data.message);
           window.location.href = "/outpass"
         } else {
