@@ -4,16 +4,13 @@ import lnmiitlogo from "../image/lnmiit.logo.png";
 import { NavLink } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
-import { UserContext } from "../context/User";
+
 
 
 
 const Login = () => {
 
   
-  const UserStudent = useContext(UserContext);
-  const {authorisedStudent, setAuthorisedStudent} = UserStudent
-  console.log(authorisedStudent)
   
   
   const [user,setUser] = useState({
