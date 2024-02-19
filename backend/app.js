@@ -109,52 +109,26 @@ app.get("/outpass", Authenticate, async (req, res) => {
         });
     }
 });
-
-app.get("/logout",Authenticate,async(req,res)=>{
-    
+// Backend route for logout
+app.get("/logout", Authenticate, async (req, res) => {
     try {
-        console.log("hello aashish!");
-        console.log(req.rootUser)
-        if(req.rootUser.user === "student")
-        {
-            req.rootUser.tokens =  req.rootUser.tokens.filter((currEle)=>{
-                return currEle.token !== req.token
-            })
-            res.clearCookie("jwt_login",{path:"/"});
-            await req.rootUser.save;
-            return res.status(200).json({
-                message : "Logout successfull!",
-                user: req.rootUser,
-            })
-        }
-        if(req.rootUser.user === "faculty")
-        {
-            req.rootUser.tokens =  req.rootUser.tokens.filter((currEle)=>{
-                return currEle.token !== req.token
-            })
-            res.clearCookie("jwt_login",{path:"/"});
-            await req.rootUser.save;
-            return res.status(200).json({
-                message : "Logout successfull!",
-                user: req.rootUser,
-            })
-        }
-        
-        // res.status(200).json({
-        //     message:"Hello dosto kaise ho",
-        //     user : req.rootUser
-        // })
+        req.rootUser.tokens = req.rootUser.tokens.filter((currEle) => {
+            return currEle.token !== req.token;
+        });
+        await req.rootUser.save();
+        res.clearCookie("jwt_login", { path: "/" });
+        return res.status(200).json({
+            message: "Logout successful!",
+            user: req.rootUser,
+        });
     } catch (error) {
-        res.status(400).json({
-            error:"User is not logout",
-            user : req.rootUser
-        })
-        console.log("ye error show ho rha h")
         console.log(error);
-        
+        res.status(500).json({
+            error: "Internal server error",
+            user: req.rootUser,
+        });
     }
-})
-
+});
 
 app.post("/studentregister", async (req, res) => {
     try {
