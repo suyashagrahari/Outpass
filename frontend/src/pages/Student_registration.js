@@ -47,7 +47,7 @@ const Student_registration = () => {
       if (res.status === 200) {
         toast.success("Registration successful !!");
         setTimeout(() => {
-          Navigate("/");
+          Navigate("/login");
         }, 500);
       } else {
         toast.error("Registration unsuccessful !!");

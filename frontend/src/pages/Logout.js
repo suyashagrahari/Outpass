@@ -26,7 +26,8 @@ const Logout = () => {
                 toast.success("Logout Successfull!");
                 console.log("logout");
                 let token = localStorage.removeItem("Studentlogintoken");
-                Navigate("/");
+                // Navigate("/");
+                window.location.href ="/"
             }
         }
         if(localStorage.getItem("Facultylogintoken"))
@@ -47,7 +48,8 @@ const Logout = () => {
                 toast.success("Logout Successfull!");
                 console.log("logout");
                 let token = localStorage.removeItem("Facultylogintoken");
-                Navigate("/");
+                // Navigate("/");
+                window.location.href = "/"
             }
         }
         else{

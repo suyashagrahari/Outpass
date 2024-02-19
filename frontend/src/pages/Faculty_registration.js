@@ -42,7 +42,7 @@ const Faculty_registration = () => {
       {
         toast.success("Registration is Successful !!");
         setTimeout(()=>{
-          Navigate("/")
+          Navigate("/login")
         },500);
       }
       

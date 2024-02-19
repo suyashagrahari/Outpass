@@ -30,16 +30,17 @@ const Login = () => {
     setUser({...user,[name]: value});
   }
 
+
   const handleSubmit = async () => {
     try {
       const res = await axios.post("http://localhost:4000/login", user);
-      console.log(res);
-      
-      // Check if the response status is 200 (OK)
-      if (res.status === 200) {
-        if(res.data.user.Faculty)
-        {
-
+      console.log("Response:", res);
+  
+      if (res && res.data) {
+        console.log("Response Data:", res.data);
+  
+        if (res.data.user.Faculty) {
+          
           console.log("student");
           console.log(res.data.user.FacultyToken);
           console.log(res.data);
@@ -53,7 +54,9 @@ const Login = () => {
             phone:res.data.user.Faculty.phone,
             token : res.data.user.FacultyToken
           }
+
           localStorage.setItem("Facultylogintoken",JSON.stringify(Data));
+
           setAuthorisedStudent({
             id : res.data.user.Faculty._id,
             name:res.data.user.Faculty.name,
@@ -68,11 +71,10 @@ const Login = () => {
           // console.log(res.data.user.StudentToken);
           // localStorage.setItem("Facultylogintoken",res.data.user.FacultyToken);
           toast.success(res.data.message);
-          Navigate("/list");
+          window.location.href = "/list"
+          // Navigate("/list");
           
-        }
-        if(res.data.user.Student)
-        {
+        } else if (res.data.user.Student) {
           console.log("student");
           console.log(res.data.user.StudentToken);
           console.log(res.data);
@@ -97,35 +99,20 @@ const Login = () => {
             token : res.data.user.StudentToken
           })
           toast.success(res.data.message);
-          Navigate("/outpass");
+          window.location.href = "/outpass"
+        } else {
+          console.error("Invalid response data:", res.data);
+          toast.error("An error occurred while processing your request. Please try again later.");
         }
-        // Check if the user is a Faculty
-        
-        
-        // if (res.data.user.user === "faculty" && res.data.user.email.length !== 0) {
-          
-        //   setTimeout(() => {
-        //     Navigate("/list");
-        //   }, 500);
-        // }
-
-     
-        // Check if the user is a Student
-        // if (res.data.user.user === "student" && res.data.user.email.length !== 0) {
-        //   toast.success(res.data.message);
-        //   setTimeout(() => {
-        //     Navigate("/outpass");
-        //   }, 500);
-        // }
-      
-      } 
+      } else {
+        console.error("Response is undefined or does not contain data property");
+        toast.error("An error occurred while processing your request. Please try again later.");
+      }
     } catch (error) {
-      // Handle Axios error (e.g., network error)
-      toast.error(error.res.data.error);
+      console.error("Error:", error);
+      toast.error("An error occurred while processing your request. Please try again later.");
     }
-
-
-  };
+  }
   return (
     <>
       {/* <Login_nav /> */}

@@ -26,6 +26,7 @@ const List = () => {
       // Handle the response if needed
       console.log(res.data);
       if(res.status === 200){
+        window.location.href = window.location.href
         toast.success(res.data.message);
       }
      
