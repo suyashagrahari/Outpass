@@ -32,8 +32,11 @@ const Contact = () => {
           message:""
         })
       }
-      else{
+      else if (res.data && res.data.error) { // Check if res.data exists and has an error property
         toast.error(res.data.error);
+      } else {
+        // Handle other cases where res.data may be undefined
+        toast.error("An unexpected error occurred.");
       }
       
     } catch (error) {

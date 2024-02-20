@@ -312,86 +312,81 @@ app.post("/facultyregister", async (req, res) => {
 
 
 
-
 app.post("/login", async (req, res) => {
     try {
-      const { email, password } = req.body;
-  
-      if (!email || !password) {
-        return res.status(400).json({ error: "Every field is required" });
-      }
-  
-      const Student = await StudentRegistration.findOne({"email" : email});
-      const Faculty = await FacultyRegistration.findOne({"email" : email});
+        const { email, password } = req.body;
 
+        if (!email || !password) {
+            return res.status(400).json({ error: "Every field is required" });
+        }
 
-      if(Student && Student.email === email){
-        const boolPasword = bcrypt.compare(password,Student.password);
-        if(boolPasword){
-            // generate token 
-            const StudentToken = await Student.generateAuthToken();
-            // generate cookie and send token to the frontend 
-            res.cookie("jwt_login", StudentToken, {
-                expires: new Date(Date.now() + 60 * 60 * 1000), // 7 days
-                httpOnly: true,
-            });
-            const user = {
-                Student,
-                StudentToken,
+        const Student = await StudentRegistration.findOne({ "email": email });
+        const Faculty = await FacultyRegistration.findOne({ "email": email });
+
+        if (Student && Student.email === email) {
+            const boolPasword = await bcrypt.compare(password, Student.password);
+            if (boolPasword) {
+                // generate token 
+                const StudentToken = await Student.generateAuthToken();
+                // generate cookie and send token to the frontend 
+                res.cookie("jwt_login", StudentToken, {
+                    expires: new Date(Date.now() + 60 * 60 * 1000), // 7 days
+                    httpOnly: true,
+                });
+                const user = {
+                    Student,
+                    StudentToken,
+                }
+                console.log("Ye rha student ka token", StudentToken);
+                return res.status(200).json({
+                    message: 'Student Login successful',
+                    user: user,
+                });
+            } else {
+                return res.status(400).json({
+                    error: "Invalid User",
+                    user: Student,
+                });
             }
-            console.log("Ye rha student ka token",StudentToken);
-            return res.status(200).json({
-                message: 'Student Login successful',
-                user: user,
-              });
         }
-        else{
-            return res.status(400).json({
-                error: "Invalid User",
-                user: Student,
-              });
-        }
-      }
-      
 
-      if(Faculty && Faculty.email === email){
-        const boolPasword = bcrypt.compare(password,Faculty.password);
-        if(boolPasword){
-            // generate token 
-            const FacultyToken = await Faculty.generateAuthToken();
-            // generate cookie and send token to the frontend 
-            res.cookie("jwt_login", FacultyToken, {
-                expires: new Date(Date.now() + 60 * 60 * 1000), // 7 days
-                httpOnly: true,
-               
-            });
-            const user = {
-                Faculty,
-                FacultyToken,
+
+        if (Faculty && Faculty.email === email) {
+            const boolPasword = await bcrypt.compare(password, Faculty.password);
+            if (boolPasword) {
+                // generate token 
+                const FacultyToken = await Faculty.generateAuthToken();
+                // generate cookie and send token to the frontend 
+                res.cookie("jwt_login", FacultyToken, {
+                    expires: new Date(Date.now() + 60 * 60 * 1000), // 7 days
+                    httpOnly: true,
+
+                });
+                const user = {
+                    Faculty,
+                    FacultyToken,
+                }
+                console.log("Ye rha faculty ka token", FacultyToken);
+                return res.status(200).json({
+                    message: 'Faculty Login successful',
+                    user: user,
+                });
+            } else {
+                return res.status(400).json({
+                    error: "Invalid User",
+                    user: Faculty,
+                });
             }
-            console.log("Ye rha faculty ka token",FacultyToken);
-            return res.status(200).json({
-                message: 'Faculty Login successful',
-                user: user,
-              });
         }
-        else{
-            return res.status(400).json({
-                error: "Invalid User",
-                user: Faculty,
-              });
-        }
-      }
-      
-  
-      return res.status(400).json({ error: "Invalid User" });
-  
+
+
+        return res.status(400).json({ error: "Invalid User" });
+
     } catch (error) {
         console.log(error);
-      return res.status(500).json({ error: "Internal Server Error" });
+        return res.status(500).json({ error: "Internal Server Error" });
     }
-  });
-
+});
 
   app.post("/contact", async(req,res)=>{
     try {
