@@ -34,6 +34,7 @@ const Faculty_registration = () => {
   const sendData = async (e) => {
     try {
         e.preventDefault();
+        toast.loading("wait page is loading...");
       const res = await axios.post("https://outpass-backend.onrender.com/facultyregister",faculty);
       const result = res.data;
       console.log(result);

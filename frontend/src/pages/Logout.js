@@ -15,7 +15,7 @@ const Logout = () => {
                 console.log("No token found");
                 return;
             }
-
+            toast.loading("wait page is loading...");
             const res = await axios.get('https://outpass-backend.onrender.com/logout', {
                 headers: {
                     'Authorization': token

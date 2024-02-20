@@ -52,7 +52,7 @@ const Outpass = () => {
         console.log("Token is not provided");
         return;
       }
-  
+      toast.loading("wait page is loading...");
       const res = await axios.get('https://outpass-backend.onrender.com/outpass', {
         headers: {
           'Authorization': user.token,
@@ -78,6 +78,7 @@ const Outpass = () => {
   const handleSubmit = async () => {
     try {
       const user = { ...userData, mode, date, time, visitpurpose };
+      toast.loading("wait page is loading...");
       const result = await axios.post('https://outpass-backend.onrender.com/outpass', user);
       if (result.status === 200) {
         toast.success(result.data.message);

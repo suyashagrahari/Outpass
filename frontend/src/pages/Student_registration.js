@@ -39,6 +39,7 @@ const Student_registration = () => {
   
   const handleSubmit = async () => {
     try {
+      toast.loading("wait page is loading...");
       const res = await axios.post("https://outpass-backend.onrender.com/studentregister", user);
       const result = res.data;
       console.log(result);

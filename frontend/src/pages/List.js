@@ -21,6 +21,7 @@ const List = () => {
       };
 
       // Make an HTTP POST request to your backend API endpoint
+      toast.loading("wait page is loading...");
       const res = await axios.post('https://outpass-backend.onrender.com/list', data);
 
       // Handle the response if needed
@@ -54,7 +55,7 @@ const List = () => {
           navigate("/login");
           return;
         }
-
+        toast.loading("wait page is loading...");
         const response = await axios.get("https://outpass-backend.onrender.com/list", {
           headers: {
             Authorization: parseData.token,
