@@ -15,7 +15,7 @@ const Navbar = () => {
                 const userData = JSON.parse(user);
                 setParseData(userData);
                 if (userData && userData.email) {
-                    setFirstLetter(userData.email[0]?.toUpperCase());
+                    setFirstLetter(userData.name[0]?.toUpperCase());
                 } else {
                     console.error("Email not found in userData or userData is null or undefined");
                 }

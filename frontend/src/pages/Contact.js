@@ -19,13 +19,15 @@ const Contact = () => {
 
   const handleSubmit = async()=>{
     try {
-      toast.loading("wait page is loading...");
+      toast.loading("Please wait...");
       const res = await axios.post("https://outpass-backend.onrender.com/contact",user);
-      toast.dismiss();
+      
       console.log(res);
       if(res.status === 200)
       {
-        toast.success(res.data.message);
+        setTimeout(()=>{
+          toast.success(res.data.message);
+        },100)
         setUser({
           name : "",
           email: "",
@@ -43,7 +45,9 @@ const Contact = () => {
       toast.error(error.response.data.error)  
       console.log(error);
       
-    }
+    }finally {
+      toast.dismiss(); // Dismiss loading toast after try-catch block
+  }
   }
 
   return (

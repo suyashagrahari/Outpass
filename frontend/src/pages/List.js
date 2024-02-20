@@ -21,9 +21,9 @@ const List = () => {
       };
 
       // Make an HTTP POST request to your backend API endpoint
-      toast.loading("wait page is loading...");
+      toast.loading("Please wait...");
       const res = await axios.post('https://outpass-backend.onrender.com/list', data);
-      toast.dismiss();
+      
       // Handle the response if needed
       console.log(res.data);
       if(res.status === 200){
@@ -55,13 +55,13 @@ const List = () => {
           navigate("/login");
           return;
         }
-        toast.loading("wait page is loading...");
+        toast.loading("Please wait...");
         const response = await axios.get("https://outpass-backend.onrender.com/list", {
           headers: {
             Authorization: parseData.token,
           },
         });
-        toast.dismiss();
+        
         console.log(response);
         console.log(response.data.user.List[0]._id)
         if (response.status === 200) {
@@ -73,7 +73,9 @@ const List = () => {
         }
       } catch (error) {
         console.log(error);
-      }
+      }finally {
+        toast.dismiss(); // Dismiss loading toast after try-catch block
+    }
     };
 
     fetchData();

@@ -9,10 +9,6 @@ import axios from "axios";
 
 
 const Login = () => {
-
-  
-  
-  
   const [user,setUser] = useState({
     email:"" , password:""
   })
@@ -26,76 +22,83 @@ const Login = () => {
     setUser({...user,[name]: value});
   }
 
-
   const handleSubmit = async () => {
     try {
-      
-      toast.loading("wait page is loading...");
-      const res = await axios.post("https://outpass-backend.onrender.com/login", user);
-      toast.dismiss();
-      console.log("Response:", res);
-  
-      if (res && res.data) {
-        console.log("Response Data:", res.data);
-  
-        if (res.data.user.Faculty) {
-          
-          console.log("student");
-          console.log(res.data.user.FacultyToken);
-          console.log(res.data);
+        toast.loading("Please wait, logging in...");
+        const res = await axios.post("https://outpass-backend.onrender.com/login", user);
+        console.log("Response:", res);
 
-          const Data = {
-            id : res.data.user.Faculty._id,
-            name:res.data.user.Faculty.name,
-            user : res.data.user.Faculty.user,
-            email:res.data.user.Faculty.email,
-            rollno:res.data.user.Faculty.rollno,
-            phone:res.data.user.Faculty.phone,
-            token : res.data.user.FacultyToken
-          }
+        if (res.status === 200) {
+            if (res && res.data) {
+                console.log("Response Data:", res.data);
 
-          localStorage.setItem("Facultylogintoken",JSON.stringify(Data));
-
-        
-
-          // console.log("faculty");
-          // console.log(res.data.user.StudentToken);
-          // localStorage.setItem("Facultylogintoken",res.data.user.FacultyToken);
-          toast.success(res.data.message);
-          window.location.href = "/list"
-          // Navigate("/list");
-          
-        } else if (res.data.user.Student) {
-          console.log("student");
-          console.log(res.data.user.StudentToken);
-          console.log(res.data);
-
-          const Data = {
-            id : res.data.user.Student._id,
-            name:res.data.user.Student.name,
-            user : res.data.user.Student.user,
-            email:res.data.user.Student.email,
-            rollno:res.data.user.Student.rollno,
-            phone:res.data.user.Student.phone,
-            token : res.data.user.StudentToken
-          }
-          localStorage.setItem("Studentlogintoken",JSON.stringify(Data));
-         
-          toast.success(res.data.message);
-          window.location.href = "/outpass"
+                if (res.data.user && res.data.user.Faculty) {
+                    // Faculty login
+                    console.log("Faculty");
+                    const Data = {
+                      id : res.data.user.Faculty._id,
+                      name:res.data.user.Faculty.name,
+                      user : res.data.user.Faculty.user,
+                      email:res.data.user.Faculty.email,
+                      rollno:res.data.user.Faculty.rollno,
+                      phone:res.data.user.Faculty.phone,
+                      token : res.data.user.FacultyToken
+                    }
+                    
+                    localStorage.setItem("Facultylogintoken",JSON.stringify(Data));
+                    
+                    setTimeout(()=>{
+                      toast.success(res.data.message + " 🥳");
+                      
+                    },100)
+                    window.location.href = "/list";
+                    
+                    
+                } else if (res.data.user && res.data.user.Student) {
+                    // Student login
+                    console.log("Student");
+                    const Data = {
+                      id : res.data.user.Student._id,
+                      name:res.data.user.Student.name,
+                      user : res.data.user.Student.user,
+                      email:res.data.user.Student.email,
+                      rollno:res.data.user.Student.rollno,
+                      phone:res.data.user.Student.phone,
+                      token : res.data.user.StudentToken
+                    }
+                    localStorage.setItem("Studentlogintoken",JSON.stringify(Data));
+                    
+                    setTimeout(()=>{
+                      toast.success(res.data.message + " 🥳");
+                      
+                    },100)
+                    window.location.href = "/outpass";
+                    
+                } else {
+                    // Handle other cases if needed
+                }
+            } else {
+                console.error("Response is undefined or does not contain data property");
+                toast.error("Oops! Something went wrong. Please try again later.");
+            }
         } else {
-          console.error("Invalid response data:", res.data);
-          toast.error("An error occurred while processing your request. Please try again later.");
+            // Invalid user
+            console.error("Invalid response data:", res.data);
+            toast.error("Invalid user. Please check your credentials.");
         }
-      } else {
-        console.error("Response is undefined or does not contain data property");
-        toast.error("An error occurred while processing your request. Please try again later.");
-      }
     } catch (error) {
-      console.error("Error:", error);
-      toast.error("An error occurred while processing your request. Please try again later.");
+      setTimeout(()=>{
+        console.error("Error:", error);
+        toast.error("Oops Invalid User 😔 ");
+      },100)
+        
+    } finally {
+        toast.dismiss(); // Dismiss loading toast after try-catch block
     }
-  }
+}
+
+
+
   return (
     <>
       {/* <Login_nav /> */}
@@ -112,12 +115,10 @@ const Login = () => {
               <div className="flex-col flex  self-center p-10 sm:max-w-5xl xl:max-w-2xl  z-10">
                 <div className="self-start hidden lg:flex flex-col  text-white">
                   <h1 className="mb-3 font-bold text-5xl">
-                    Hi ? Welcome Back Aji{" "}
+                    Lnmiit Outpass
                   </h1>
                   <p className="pr-3 text-white ">
-                    Lorem ipsum is placeholder text commonly used in the
-                    graphic, print, and publishing industries for previewing
-                    layouts and visual mockups
+                   We're committed to providing you with a seamless and secure experience. Our login process ensures that your personal information is protected while granting you access to our wide range of services.
                   </p>
                 </div>
               </div>

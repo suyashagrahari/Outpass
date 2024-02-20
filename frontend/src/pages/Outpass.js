@@ -52,13 +52,13 @@ const Outpass = () => {
         console.log("Token is not provided");
         return;
       }
-      toast.loading("wait page is loading...");
+      toast.loading("Please wait...");
       const res = await axios.get('https://outpass-backend.onrender.com/outpass', {
         headers: {
           'Authorization': user.token,
         }
       });
-      toast.dismiss();
+      
   
       if (res.status === 200) {
         toast.success(res.data.message);
@@ -69,7 +69,9 @@ const Outpass = () => {
       }
     } catch (error) {
       console.log(error);
-    }
+    }finally {
+      toast.dismiss(); // Dismiss loading toast after try-catch block
+  }
   };
   
   useEffect(() => {
@@ -79,9 +81,9 @@ const Outpass = () => {
   const handleSubmit = async () => {
     try {
       const user = { ...userData, mode, date, time, visitpurpose };
-      toast.loading("wait page is loading...");
+      toast.loading("Please wait...");
       const result = await axios.post('https://outpass-backend.onrender.com/outpass', user);
-      toast.dismiss();
+      
       if (result.status === 200) {
         toast.success(result.data.message);
         setTimeout(() => {
@@ -91,7 +93,9 @@ const Outpass = () => {
     } catch (error) {
       toast.error(error.response.data.error);
       console.log(error);
-    }
+    }finally {
+      toast.dismiss(); // Dismiss loading toast after try-catch block
+  }
   };
 
   return (
@@ -197,10 +201,10 @@ const Outpass = () => {
               <div className="mx-5">
                 <button
                   type="submit"
-                  className="w-full flex justify-center bg-indigo-600 hover:bg-indigo-700 text-gray-100 p-3 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500"
+                  className="w-full flex justify-center bg-indigo-600 hover:bg-indigo-700 text-gray-100 p-3 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 mt-5"
                   onClick={handleSubmit}
                 >
-                  Register
+                  Generate Outpass
                 </button>
               </div>
             </div>

@@ -34,22 +34,27 @@ const Faculty_registration = () => {
   const sendData = async (e) => {
     try {
         e.preventDefault();
-        toast.loading("wait page is loading..."); 
+        toast.loading("Please wait...");
       const res = await axios.post("https://outpass-backend.onrender.com/facultyregister",faculty);
-      toast.dismiss();
+      
       const result = res.data;
       console.log(result);
       console.log(res);
       if(res.status === 200)
       {
-        toast.success("Registration is Successful !!");
+        
         setTimeout(()=>{
-          Navigate("/login")
-        },500);
+            toast.success("Registration is Successful !!");
+        },100);
+        Navigate("/login")
       }
       
     } catch (error) {
-      toast.error(error.response.data);
+        setTimeout(()=>{
+            toast.error(error.response.data);
+          },100)
+    }finally {
+        toast.dismiss(); // Dismiss loading toast after try-catch block
     }
   };
 
@@ -66,9 +71,10 @@ const Faculty_registration = () => {
                 <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
                     <div className="flex-col flex self-center p-10 sm:max-w-5xl xl:max-w-2xl z-10">
                         <div className="self-start hidden lg:flex flex-col text-white">
-                            <h1 className="mb-3 font-bold text-5xl">Hi ? Welcome Back Aji </h1>
+                            <h1 className="mb-3 font-bold text-5xl">Faculty Registration </h1>
                             <p className="pr-3 text-white ">
-                                Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups
+                            If you're new here, welcome aboard! Register is quick and easy. Click on the "Register" button to create your account and unlock a world of possibilities.ing industries for previewing layouts and
+                  visual mockups
                             </p>
                         </div>
                     </div>

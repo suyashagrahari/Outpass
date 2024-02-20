@@ -15,13 +15,13 @@ const Logout = () => {
                 console.log("No token found");
                 return;
             }
-            toast.loading("wait page is loading...");
+            toast.loading("Please wait...");
             const res = await axios.get('https://outpass-backend.onrender.com/logout', {
                 headers: {
                     'Authorization': token
                 }
             });
-            toast.dismiss();
+            
             if (res.status === 200) {
                 toast.success("Logout Successful!");
                 localStorage.removeItem("Studentlogintoken");
@@ -30,6 +30,8 @@ const Logout = () => {
             }
         } catch (error) {
             console.log(error);
+        }finally {
+            toast.dismiss(); // Dismiss loading toast after try-catch block
         }
     };
 

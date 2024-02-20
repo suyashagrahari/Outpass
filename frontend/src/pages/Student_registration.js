@@ -40,30 +40,32 @@ const Student_registration = () => {
   const handleSubmit = async () => {
     try {
       
-      toast.loading("wait page is loading...");
+      toast.loading("Please wait...");
       const res = await axios.post("https://outpass-backend.onrender.com/studentregister", user);
-      toast.dismiss();
       const result = res.data;
       console.log(result);
       console.log(res);
-      if (res.status === 200) {
-        toast.success("Registration successful !!");
+      if (res.status === 200) { 
         setTimeout(() => {
-          Navigate("/login");
-        }, 500);
+          toast.success("Registration successful !!");
+          
+        }, 100);
+        Navigate("/login");
       } else {
         toast.error("Registration unsuccessful !!");
       }
     } catch (error) {
       // Log the error message or handle it appropriately
-      console.error("Error during login:", error);
+      console.error("Error during login:", error.response.data);
       
       // Display a meaningful error message to the user
-      toast.error(error.response.data, {
-        duration: 3000,
-        position: "top-center",
-      });
-    }
+      setTimeout(()=>{
+        toast.error(error.response.data);
+      },100)
+      
+    }finally {
+      toast.dismiss(); // Dismiss loading toast after try-catch block
+  }
   };
   
   return (
@@ -80,11 +82,10 @@ const Student_registration = () => {
             <div className="flex-col flex  self-center p-10 sm:max-w-5xl xl:max-w-2xl  z-10">
               <div className="self-start hidden lg:flex flex-col  text-white">
                 <h1 className="mb-3 font-bold text-5xl">
-                  Hi ? Welcome Back Aji{" "}
+                Students Registration
                 </h1>
                 <p className="pr-3 text-white ">
-                  Lorem ipsum is placeholder text commonly used in the graphic,
-                  print, and publishing industries for previewing layouts and
+                If you're new here, welcome aboard! Register is quick and easy. Click on the "Register" button to create your account and unlock a world of possibilities.ing industries for previewing layouts and
                   visual mockups
                 </p>
               </div>
