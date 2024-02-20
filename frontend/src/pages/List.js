@@ -23,19 +23,25 @@ const List = () => {
       // Make an HTTP POST request to your backend API endpoint
       toast.loading("Please wait...");
       const res = await axios.post('https://outpass-backend.onrender.com/list', data);
-      
+      toast.dismiss();
+
       // Handle the response if needed
       console.log(res.data);
       if(res.status === 200){
+        setTimeout(()=>{
+          toast.success(res.data.message);
+        },0)
         window.location.href = "/list"
-        toast.success(res.data.message);
       }
      
     
       // Perform any other actions based on the response
     } catch (error) {
       // Handle errors
-      toast.error(error.res.data.message);
+      setTimeout(()=>{
+        toast.error(error.res.data.message);
+      },0)
+      window.location.href = "/list"
       console.error('Error:', error);
     }
   };
@@ -61,14 +67,19 @@ const List = () => {
             Authorization: parseData.token,
           },
         });
-        
+        toast.dismiss();
         console.log(response);
         console.log(response.data.user.List[0]._id)
         if (response.status === 200) {
-          toast.success(response.data.message);
+          setTimeout(()=>{
+            toast.success(response.data.message,1000);
+          },100)
           setStudents(response.data.user.List);
         } else {
-          toast.error(response.response.data.error);
+          setTimeout(()=>{
+            toast.error(response.response.data.error);
+          },100)
+          
           navigate("/login");
         }
       } catch (error) {
@@ -79,7 +90,7 @@ const List = () => {
     };
 
     fetchData();
-  }, [navigate]);
+  }, []);
 
   
    

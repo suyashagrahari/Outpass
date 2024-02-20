@@ -11,7 +11,7 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import {  purple } from '@mui/material/colors';
 import { NavLink } from 'react-router-dom';
-
+import MdPhone from '@mui/icons-material/Phone';
 export default function AccountMenu({firstLetter}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -80,9 +80,13 @@ export default function AccountMenu({firstLetter}) {
           <Avatar /> Profile
         </MenuItem>
     </NavLink>
+        
+      <NavLink to="/contact">
         <MenuItem onClick={handleClose}>
-          <Avatar /> My account
+          <MdPhone className='mr-3 bg-grey-100' /> Contact
         </MenuItem>
+    </NavLink>
+
         <Divider />
        
         <MenuItem onClick={handleClose}>

@@ -47,28 +47,41 @@ const Outpass = () => {
       });
   
       if (!user.token) {
-        toast.error("User is not valid");
-        Navigate("/login");
-        console.log("Token is not provided");
+        
+       
+          toast.error("User is not valid");
+      
+        window.location.href = "/"
         return;
       }
+
       toast.loading("Please wait...");
       const res = await axios.get('https://outpass-backend.onrender.com/outpass', {
         headers: {
           'Authorization': user.token,
         }
       });
-      
+      toast.dismiss();
   
       if (res.status === 200) {
-        toast.success(res.data.message);
-        Navigate("/outpass");
+        
+        setTimeout(()=>{
+          toast.success(res.data.message);
+        },0)
+        Navigate("/outpass")
+        
       } else {
-        toast.error(res.response.data.error);
+        console.log(res.response.data.error)
+        setTimeout(()=>{
+          toast.error(res.response.data.error);
+        },0)
         Navigate("/login");
       }
     } catch (error) {
-      console.log(error);
+      setTimeout(()=>{
+        toast.error(error.response.data);
+      },0)
+      Navigate("/outpass");
     }finally {
       toast.dismiss(); // Dismiss loading toast after try-catch block
   }
@@ -83,15 +96,29 @@ const Outpass = () => {
       const user = { ...userData, mode, date, time, visitpurpose };
       toast.loading("Please wait...");
       const result = await axios.post('https://outpass-backend.onrender.com/outpass', user);
-      
+      toast.dismiss();
       if (result.status === 200) {
-        toast.success(result.data.message);
+        
         setTimeout(() => {
-          Navigate("/");
-        }, 500);
+          toast.success(result.data.message);
+        },100);
+        setMode("");
+        setDate("");
+        setTime("");
+        setVisitPurpose("");
+        Navigate("/outpass")
+      }
+      else{
+        setTimeout(() => {
+          toast.error(result.data.error);
+        },100);
+        Navigate("/outpass")
       }
     } catch (error) {
-      toast.error(error.response.data.error);
+      setTimeout(()=>{
+        toast.error(error.response.data.error);
+      },0)
+      Navigate("/outpass")
       console.log(error);
     }finally {
       toast.dismiss(); // Dismiss loading toast after try-catch block

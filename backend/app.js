@@ -429,38 +429,52 @@ app.post("/login", async (req, res) => {
 
   app.post("/outpass",async(req,res)=>{
     try {
-        console.log("ye rha hmara body" ,req.body);
-       const {_id,name,email, rollno, phone, visitpurpose, mode, time, date, status}  = req.body;
-       if(!name || !email || !visitpurpose || !mode || !date || !time )
-       {
+        console.log("Here is our request body:", req.body);
+        const { _id, name, email, rollno, phone, visitpurpose, mode, time, date, status } = req.body;
+    
+        // Check if required fields are missing
+        if (!name || !email || !visitpurpose || !mode || !date || !time) {
             return res.status(400).json({
-                error: "Every field is required!"
-            })
-       }
-       const User = new OutpassModel({
-        _id : _id,
-        name:name,
-        email:email,
-        rollno : rollno,
-        phone:phone,
-        visitpurpose: visitpurpose,
-        mode:mode,
-        date:date,
-        time: time,
-        status : status,
-       })
-
-       const newUser = await User.save();
-       return res.status(200).json({
-        message : "Outpass submitted Successfully!",
-        user : newUser,
-       })
-
+                error: "All fields are required!"
+            });
+        }
+    
+        // Check if the outpass with the given _id already exists
+        const existingOutpass = await OutpassModel.findOne({ _id: _id });
+        if (existingOutpass) {
+            return res.status(400).json({
+                error: "Outpass already submitted!"
+            });
+        }
+    
+        // Create a new Outpass document
+        const newOutpass = new OutpassModel({
+            _id: _id,
+            name: name,
+            email: email,
+            rollno: rollno,
+            phone: phone,
+            visitpurpose: visitpurpose,
+            mode: mode,
+            date: date,
+            time: time,
+            status: status,
+        });
+    
+        // Save the new Outpass document
+        const savedOutpass = await newOutpass.save();
+    
+        return res.status(200).json({
+            message: "Outpass submitted successfully!",
+            outpass: savedOutpass,
+        });
     } catch (error) {
-       return res.status(400).json({
-                error: "Outpass is not Submitted!"
-            })
+        console.error("Error submitting outpass:", error);
+        return res.status(500).json({
+            error: "Internal server error. Outpass could not be submitted."
+        });
     }
+    
   })
   
  
