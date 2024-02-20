@@ -23,7 +23,7 @@ const List = () => {
       // Make an HTTP POST request to your backend API endpoint
       toast.loading("wait page is loading...");
       const res = await axios.post('https://outpass-backend.onrender.com/list', data);
-
+      toast.dismiss();
       // Handle the response if needed
       console.log(res.data);
       if(res.status === 200){
@@ -35,7 +35,7 @@ const List = () => {
       // Perform any other actions based on the response
     } catch (error) {
       // Handle errors
-      toast.success(error.res.data.message);
+      toast.error(error.res.data.message);
       console.error('Error:', error);
     }
   };
@@ -61,6 +61,7 @@ const List = () => {
             Authorization: parseData.token,
           },
         });
+        toast.dismiss();
         console.log(response);
         console.log(response.data.user.List[0]._id)
         if (response.status === 200) {

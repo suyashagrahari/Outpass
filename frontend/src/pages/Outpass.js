@@ -58,6 +58,7 @@ const Outpass = () => {
           'Authorization': user.token,
         }
       });
+      toast.dismiss();
   
       if (res.status === 200) {
         toast.success(res.data.message);
@@ -80,6 +81,7 @@ const Outpass = () => {
       const user = { ...userData, mode, date, time, visitpurpose };
       toast.loading("wait page is loading...");
       const result = await axios.post('https://outpass-backend.onrender.com/outpass', user);
+      toast.dismiss();
       if (result.status === 200) {
         toast.success(result.data.message);
         setTimeout(() => {

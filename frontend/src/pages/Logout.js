@@ -21,7 +21,7 @@ const Logout = () => {
                     'Authorization': token
                 }
             });
-
+            toast.dismiss();
             if (res.status === 200) {
                 toast.success("Logout Successful!");
                 localStorage.removeItem("Studentlogintoken");
