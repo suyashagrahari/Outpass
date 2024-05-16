@@ -17,6 +17,11 @@ const Authenticate = require("./middleware/authenticate");
 const ContactRegistration = require("./models/ContactSchema");
 const OutpassModel = require("./models/outpassSchema");
 const sendMail  = require("./middleware/sendMail");
+
+
+
+
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
